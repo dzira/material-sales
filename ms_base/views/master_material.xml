@@ -1,0 +1,81 @@
+<odoo>
+  <data>
+
+    <menuitem
+      id="ms_sales_menu"
+      name="Sales"
+      sequence="10"/>
+   
+    <record id="master_material_view_list" model="ir.ui.view">
+      <field name="name">master.material.view.list</field>
+      <field name="model">master.material</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="material_name"/>
+          <field name="material_code"/>
+          <field name="material_type"/>
+          <field name="material_buy_price"/>
+          <field name="related_supplier"/>
+        </tree>
+      </field>
+    </record>
+
+    <record id="master_material_view_form" model="ir.ui.view">
+      <field name="name">master.material.view.form</field>
+      <field name="model">master.material</field>
+      <field name="arch" type="xml">
+        <form string="Materials">
+          <sheet>
+            <div class="oe_title">
+                <label for="material_name" class="oe_edit_only"/>
+                <h2><field name="material_name"/></h2>
+            </div>
+            <group>
+              <group>
+                <field name="material_code"/>
+                <field name="material_type"/>
+              </group>
+              <group>
+                <field name="related_supplier"/>
+                <field name="material_buy_price"/>
+              </group>
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+    <record id="master_material_view_search" model="ir.ui.view">
+      <field name="name">master.material.view.search</field>
+      <field name="model">master.material</field>
+      <field name="arch" type="xml">
+        <search string="">
+          <group expand='0' string='Filters'>
+            <filter name='filter_cotton' string="Cotton" domain="[('material_type','=', 'cotton')]" />
+            <filter name='filter_fabric' string="Fabric" domain="[('material_type','=', 'fabric')]" />
+            <filter name='filter_jeans' string="Jeans" domain="[('material_type','=', 'jeans')]" />
+          </group>
+          <group expand='0' string='Group by...'>
+            <filter string='Material Type' name="type_group" domain="[]" context="{'group_by': 'material_type'}"/>
+          </group>
+        </search>
+      </field>
+    </record>
+
+    <record id="master_material_action" model="ir.actions.act_window">
+      <field name="name">Material</field>
+      <field name="res_model">master.material</field>
+      <field name="view_mode">tree,form</field>
+      <field name="domain">[]</field>
+      <field name="context">{}</field>
+    </record>
+
+    <menuitem
+      id="module_sales_master_material_menu"
+      name="Materials"
+      action="master_material_action"
+      parent="ms_sales_menu"
+      sequence="1"/>
+
+  </data>
+</odoo>
